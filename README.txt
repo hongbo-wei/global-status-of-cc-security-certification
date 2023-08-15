@@ -1,8 +1,18 @@
-In Terminal:
+# Common Criteria Global Certification Status
 
-1. $ django-admin startproject myproject
-2. $ python manage.py startapp myapp
-3. $ python manage.py runserver
+### Project Preview
+<img src="https://github.com/hongbo-wei/CC-Global-Status/blob/main/Project%20Preview.png?raw=true">
+
+Django Commands in Terminal:
+
+    // Make a new project
+    django-admin startproject myproject 
+
+    // Make a new app
+    python manage.py startapp myapp
+
+    // Run the app
+    python manage.py runserver
 
 Check model columns' inforamtion:
     python manage.py inspectdb mytable
