@@ -1,0 +1,19 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#chartSelect {
+  display: block;
+  margin: 20px auto;
+}
+
+#chartContainer {
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}

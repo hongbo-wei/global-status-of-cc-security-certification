@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>政务服务大数据可视化监管平台-数据中心</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .main_top_echarts_con {
+            position: relative;
+        }
+
+        .chart-select {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+<div id="particles-js" class="main">
+    <div class="main_top_middle_bottom">
+        <div class="main_top_middle_bottom_echarts">
+            <img src="./images/main_top_bottom.png">
+            <div class="main_top_echarts_con">
+                <div class="main_top_echarts_con_title">XX公开数量占比</div>
+                <div id="threeTasksId" class="main_top_echarts_pie"></div>
+                <select id="yearSelect">
+                    <option value="2021">2021</option>
+                    <option value="2022" selected>2022</option>
+                    <option value="2023">2023</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+<script type="text/javascript" src="js/dataScoll.js"></script>
+<script type="text/javascript" src="js/digitalScroll.js"></script>
+<script type="text/javascript" src="js/jcarousellite.js"></script>
+<script type="text/javascript" src="js/particles.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+
+<script>
+    $(function() {
+        function apiFn() {
+            this.hostname = ""
+        }
+        apiFn.prototype = {
+            Init:function() {
+                this.threeTasksFn()
+                setInterval(function() {
+                    numInit()
+                },6000)
+            },
+
+            // 三务公开数量
+            threeTasksFn:function() {
+                let names = "666666";
+                var dataArr = {
+                    '2021': [
+                    {name: '测试11', value: 50},
+                    {name: '测试22', value: 60},
+                    {name: '测试33', value: 70},
+                    {name: '测试44', value: 80},
+                    {name: '测试55', value: 90},
+                    {name: '测试66', value: 100},
+                    ],
+                    '2022': [
+                    {name: '测试11', value: 300},
+                    {name: '测试22', value: 500},
+                    {name: '测试33', value: 400},
+                    {name: '测试44', value: 350},
+                    {name: '测试55', value: 363},
+                    {name: '测试66', value: 800},
+                    ],
+                    '2023': [
+                    {name: '测试11', value: 100},
+                    {name: '测试22', value: 200},
+                    {name: '测试33', value: 300},
+                    {name: '测试44', value: 450},
+                    {name: '测试55', value: 563},
+                    {name: '测试66', value: 600},
+                    ],
+                }
+
+                var yearSelect = document.getElementById('yearSelect');
+                var selectedYear = yearSelect.value;
+                var data = dataArr[selectedYear];
+
+                for (var i = 1; i < data.length; i++) {
+                    $(".main_top_left_c_l_n" + i).addClass("counter-value").text(data[i].value);
+                }
+
+                var threeTasksChart = echarts.init(document.getElementById('threeTasksId'));
+
+                var option = {
+                    color: ['#38EB70', '#2E8CFF', '#0EFCFF', '#858FF8', '#FD9133', '#F7E270'],
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        itemWidth: 15,
+                        itemHeight: 15,
+                        orient: 'vertical',
+                        top: '10%',
+                        bottom: '50%',
+                        x: '50%',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize: 8,
+                        },
+                        data: data
+                    },
+                    series: {
+                        name: '三务公开数量',
+                        type: 'pie',
+                        animationDuration: 1500,
+                        radius: ['70%', '90%'],
+                        center: ['25%', '50%'],
+                        roseType: 'radius',
+                        label: {
+                            normal: {
+                                position: 'inner',
+                                show: false
+                            }
+                        },
+                        data: data
+                    }
+                };
+
+                threeTasksChart.setOption(option);
+
+                yearSelect.addEventListener('change', function () {
+                    selectedYear = yearSelect.value;
+                    data = dataArr[selectedYear];
+                    updateChart();
+                });
+
+                function updateChart() {
+                    for (var i = 1; i < data.length; i++) {
+                        $(".main_top_left_c_l_n" + i).addClass("counter-value").text(data[i].value);
+                    }
+                    option.legend.data = data;
+                    option.series.data = data;
+
+                    threeTasksChart.clear();
+                    threeTasksChart.setOption(option);
+                }
+
+                updateChart(); // Call the updateChart function initially to show the default data
+            },
+        };
+
+        var start = new apiFn();
+        start.Init();
+    });
+</script>

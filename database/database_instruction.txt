@@ -1,0 +1,75 @@
+在Terminal里进入mysql: mysql -u root -p
+
+Create table:
+    sql = '''CREATE TABLE `test`.`chinadb` (
+          `id` INT NOT NULL AUTO_INCREMENT,
+          `No` INT NULL,
+          `company` VARCHAR(45) NULL,
+          `product` VARCHAR(45) NULL,
+          `certification_No` VARCHAR(45) NULL,
+          `level` VARCHAR(45) NULL,
+          `date_of_issue` VARCHAR(45) NULL,
+          `expiration_date` VARCHAR(45) NULL,
+          PRIMARY KEY (`id`),
+          UNIQUE INDEX `product_UNIQUE` (`product`))
+        ENGINE = InnoDB
+        DEFAULT CHARACTER SET = utf8;
+         '''
+
+Copy DB:
+    1. mysqldump db_being_copyed -uroot -proot --add-drop-table | mysql target_db -uroot -proot
+    2. CREATE TABLE first_project.cc_statistic_niap AS SELECT * FROM cyber_security.niap_usa
+
+Delete a bunch of special rows:
+    DELETE FROM table_name WHERE column_name='value';
+
+Delete all rows in a table:
+    TRUNCATE TABLE table_name;
+
+Fuzzy search:
+    SELECT COUNT(Issue_date) AS NumberOfProducts FROM database WHERE Issue_date like '2022%'
+
+Search and Sort by count:
+    SELECT column_name, COUNT(*) AS count
+    FROM table_name
+    GROUP BY column_name
+    ORDER BY count DESC
+    LIMIT 5;
+
+Getpass:
+    *** the password in terminal
+
+Insertion:
+    INSERT INTO my_table (column1, column2, ...)
+    VALUES (values_1, values_2, ...);
+
+Insertion without duplication (column must be primary key or UNIQUE):
+    INSERT IGNORE INTO my_table (column1, column2, ...)
+    VALUES (values_1, values_2, ...);
+
+    SELECT * FROM my_table;
+
+Reassign / reset / reorder the primary key (auto increment):
+    SET @count = 0;
+    UPDATE `users` SET `users`.`id` = @count:= @count + 1;
+
+Rename pandas dataframe column:
+    df = df.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'})
+    # Or rename the existing DataFrame (rather than creating a copy)
+    df.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'}, inplace=True)
+
+    df = pd.DataFrame('x', index=range(3), columns=list('abcde'))
+
+Transfer database:
+    YouTube mysqldump -u root -p mydatabase > hongbo.sql
+
+Turn off safe mode in MySQL:
+    SET SQL_SAFE_UPDATES = 0;
+
+Turn off 'read only' mood: set global read_only=0:
+    if a table doesn't have primary key, it will be 'read only' in MySQL workbench
+
+for padas: specific column df['name']
+
+Update a bunch of column's value:
+    update cc_statistic.cc_statistic_spain set Evaluation = replace(Evaluation,' None','');
